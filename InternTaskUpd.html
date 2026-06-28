@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SRTA Services Feedback</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 0;
+    }
+
+    .top-header {
+      background-color: #555c5c;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .logo {
+      max-width: 480px;
+      width: 90%;
+      height: auto;
+    }
+
+    .main-box {
+      background-color: white;
+      max-width: 850px;
+      margin: 30px auto;
+      padding: 25px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px #cccccc;
+    }
+
+    h2 {
+      text-align: center;
+      color: #006b5c;
+      margin-top: 0;
+    }
+
+    .intro {
+      text-align: center;
+      color: #444444;
+      line-height: 1.6;
+    }
+
+    .language-buttons {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    button {
+      padding: 10px 25px;
+      background-color: #006b5c;
+      color: white;
+      border: none;
+      margin: 5px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    button:hover {
+      background-color: #004f44;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #006b5c;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #cccccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    textarea {
+      height: 90px;
+      resize: vertical;
+    }
+
+    .service-box {
+      border: 1px solid #dddddd;
+      padding: 15px;
+      margin-top: 15px;
+      border-radius: 6px;
+      background-color: #fafafa;
+    }
+
+    .service-details {
+      display: none;
+    }
+
+    .submit-area {
+      text-align: center;
+      margin-top: 25px;
+    }
+
+    .message {
+      display: none;
+      margin-top: 20px;
+      background-color: #e9f7f3;
+      color: #006b5c;
+      padding: 15px;
+      border-radius: 6px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    #arabicPage {
+      display: none;
+      direction: rtl;
+      text-align: right;
+    }
+
+    #arabicPage .intro {
+      text-align: center;
+    }
+
+    @media (max-width: 700px) {
+      .main-box {
+        margin: 15px;
+        padding: 18px;
+      }
+
+      button {
+        width: 100%;
+        margin: 5px 0;
+      }
+
+      h2 {
+        font-size: 22px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="top-header">
+    <!-- Save the logo image in the same folder and name it srta-logo.png -->
+    <img src="SRTA_logo.png" alt="Sharjah Roads and Transport Authority Logo" class="logo">
+  </div>
+
+  <div class="main-box">
+
+    <div class="language-buttons">
+      <button onclick="showEnglish()">English</button>
+      <button onclick="showArabic()">العربية</button>
+    </div>
+
+    <div id="englishPage">
+      <h2>SRTA Services Feedback</h2>
+
+      <p class="intro">
+        Thank you for visiting this page. Your feedback will be submitted to the Customer Service Department.
+      </p>
+
+      <label>Customer Name *</label>
+      <input type="text" id="englishName" required>
+
+      <label>Business Phone Number *</label>
+      <input type="tel" id="englishPhone" required>
+
+      <div id="englishServicesArea"></div>
+
+      <div class="submit-area">
+        <button onclick="addEnglishService()">Add Another Service</button>
+        <button onclick="submitEnglishForm()">Submit Feedback</button>
+      </div>
+
+      <div id="englishMessage" class="message">
+        Thank you for your feedback. Your comments have been submitted to the Customer Service Department.
+      </div>
+    </div>
+
+    <div id="arabicPage">
+      <h2>ملاحظات ومقترحات خدمات الهيئة</h2>
+
+      <p class="intro">
+        شكراً لزيارتكم هذه الصفحة. سيتم إرسال ملاحظاتكم إلى قسم خدمة العملاء.
+      </p>
+
+      <label>اسم المتعامل *</label>
+      <input type="text" id="arabicName" required>
+
+      <label>رقم الهاتف التجاري *</label>
+      <input type="tel" id="arabicPhone" required>
+
+      <div id="arabicServicesArea"></div>
+
+      <div class="submit-area">
+        <button onclick="addArabicService()">إضافة خدمة أخرى</button>
+        <button onclick="submitArabicForm()">إرسال الملاحظات</button>
+      </div>
+
+      <div id="arabicMessage" class="message">
+        شكراً لكم على ملاحظاتكم. تم إرسالها إلى قسم خدمة العملاء.
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    var englishCount = 0;
+    var arabicCount = 0;
+
+    function showEnglish() {
+      document.getElementById("englishPage").style.display = "block";
+      document.getElementById("arabicPage").style.display = "none";
+      document.documentElement.lang = "en";
+      document.documentElement.dir = "ltr";
+    }
+
+    function showArabic() {
+      document.getElementById("englishPage").style.display = "none";
+      document.getElementById("arabicPage").style.display = "block";
+      document.documentElement.lang = "ar";
+      document.documentElement.dir = "rtl";
+    }
+
+    function showEnglishDetails(number) {
+      document.getElementById("englishDetails" + number).style.display = "block";
+    }
+
+    function showArabicDetails(number) {
+      document.getElementById("arabicDetails" + number).style.display = "block";
+    }
+
+    function addEnglishService() {
+      englishCount = englishCount + 1;
+
+      document.getElementById("englishServicesArea").innerHTML +=
+        '<div class="service-box">' +
+          '<label>Service ' + englishCount + '</label>' +
+          '<select id="englishService' + englishCount + '" onchange="showEnglishDetails(' + englishCount + ')">' +
+            '<option value="">Select a service</option>' +
+            '<option>Online Taxi Booking</option>' +
+            '<option>Intercity Bus Schedule</option>' +
+            '<option>Parking Request for People with Disabilities</option>' +
+            '<option>NOC for Connection of Services</option>' +
+            '<option>NOC Request to the Occupying of Part of Right of Way</option>' +
+            '<option>Fine Inquiry</option>' +
+            '<option>NOC Request for Construction Works within Right of Way</option>' +
+            '<option>Licenses System</option>' +
+            '<option>Complaint and Suggestion</option>' +
+          '</select>' +
+
+          '<div id="englishDetails' + englishCount + '" class="service-details">' +
+            '<label>Complaint / Comment</label>' +
+            '<textarea id="englishComment' + englishCount + '"></textarea>' +
+
+            '<label>Suggestion</label>' +
+            '<textarea id="englishSuggestion' + englishCount + '"></textarea>' +
+          '</div>' +
+        '</div>';
+    }
+
+    function addArabicService() {
+      arabicCount = arabicCount + 1;
+
+      document.getElementById("arabicServicesArea").innerHTML +=
+        '<div class="service-box">' +
+          '<label>الخدمة ' + arabicCount + '</label>' +
+          '<select id="arabicService' + arabicCount + '" onchange="showArabicDetails(' + arabicCount + ')">' +
+            '<option value="">اختر الخدمة</option>' +
+            '<option>حجز مركبة أجرة</option>' +
+            '<option>جدول مواعيد حافلات النقل بين المدن</option>' +
+            '<option>طلب مواقف لذوي الإعاقة</option>' +
+            '<option>شهادة عدم ممانعة لتوصيل الخدمات</option>' +
+            '<option>إصدار شهادة عدم ممانعة لإشغال جزء من حرم الطريق</option>' +
+            '<option>الاستعلام عن المخالفات</option>' +
+            '<option>إصدار شهادة عدم ممانعة لتنفيذ أعمال إنشائية ضمن حرم الطريق</option>' +
+            '<option>نظام التراخيص</option>' +
+            '<option>المقترحات والشكاوى</option>' +
+          '</select>' +
+
+          '<div id="arabicDetails' + arabicCount + '" class="service-details">' +
+            '<label>الملاحظة / الشكوى</label>' +
+            '<textarea id="arabicComment' + arabicCount + '"></textarea>' +
+
+            '<label>المقترح</label>' +
+            '<textarea id="arabicSuggestion' + arabicCount + '"></textarea>' +
+          '</div>' +
+        '</div>';
+    }
+
+    function submitEnglishForm() {
+      if (document.getElementById("englishName").value == "" || document.getElementById("englishPhone").value == "") {
+        alert("Please enter your name and business phone number.");
+        return;
+      }
+
+      document.getElementById("englishMessage").style.display = "block";
+
+      var email = "your-email@example.com";
+      var subject = "SRTA Services Feedback";
+
+      var body = "Customer Name: " + document.getElementById("englishName").value + "\n";
+      body = body + "Business Phone Number: " + document.getElementById("englishPhone").value + "\n\n";
+
+      for (var i = 1; i <= englishCount; i++) {
+        if (document.getElementById("englishService" + i).value != "") {
+          body = body + "Service " + i + ": " + document.getElementById("englishService" + i).value + "\n";
+          body = body + "Comment: " + document.getElementById("englishComment" + i).value + "\n";
+          body = body + "Suggestion: " + document.getElementById("englishSuggestion" + i).value + "\n\n";
+        }
+      }
+
+      window.location.href = "mailto:" + email + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+    }
+
+    function submitArabicForm() {
+      if (document.getElementById("arabicName").value == "" || document.getElementById("arabicPhone").value == "") {
+        alert("يرجى إدخال الاسم ورقم الهاتف التجاري.");
+        return;
+      }
+
+      document.getElementById("arabicMessage").style.display = "block";
+
+      var email = "your-email@example.com";
+      var subject = "SRTA Services Feedback";
+
+      var body = "اسم المتعامل: " + document.getElementById("arabicName").value + "\n";
+      body = body + "رقم الهاتف التجاري: " + document.getElementById("arabicPhone").value + "\n\n";
+
+      for (var i = 1; i <= arabicCount; i++) {
+        if (document.getElementById("arabicService" + i).value != "") {
+          body = body + "الخدمة " + i + ": " + document.getElementById("arabicService" + i).value + "\n";
+          body = body + "الملاحظة: " + document.getElementById("arabicComment" + i).value + "\n";
+          body = body + "المقترح: " + document.getElementById("arabicSuggestion" + i).value + "\n\n";
+        }
+      }
+
+      window.location.href = "mailto:" + email + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+    }
+
+    addEnglishService();
+    addArabicService();
+  </script>
+
+</body>
+</html>
